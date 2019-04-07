@@ -1,7 +1,7 @@
 package ru.spsuace.homework6.state;
 
 import java.util.function.BinaryOperator;
-import java.util.function.Supplier;
+import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
 /**
@@ -14,9 +14,10 @@ import java.util.function.UnaryOperator;
  * Из состояния FINISH можно перейти или в состояние INIT или в состояние CLOSE.
  * CLOSE - конченое состояние.
  *
- * Если какой-либо метод вызывается после перехода в состояние CLOSE он должен кинуть ошибку.
+ * Если какой-либо метод вызывается после перехода в состояние CLOSE
+ * он должен написать ошибку (НЕ бросить) и сразу выйти.
  * Если вызван метод, который не соответствует текущему состоянию - он ждет,
- * пока не состояние не станет подходящим для него (или ждет состояние CLOSE, чтобы кинуть ошибку)
+ * пока состояние не станет подходящим для него (или ждет состояние CLOSE, чтобы написать ошибку и выйти)
  *
  *
  * Есть три варианта решения этой задачи.
@@ -54,7 +55,7 @@ public class CalculateContainer<T> {
     /**
      * Передает результат потребителю и переводит контейнер в состояние FINISH (Возможно только из состояния RUN)
      */
-    public void finish(Supplier<T> finishSupplier) {
+    public void finish(Consumer<T> finishConsumer) {
 
     }
 
@@ -63,9 +64,16 @@ public class CalculateContainer<T> {
      * Закрывает контейнер и передает результат потребителю. Переводит контейнер в состояние CLOSE
      * (Возможно только из состояния FINISH)
      */
-    public void close(Supplier<T> closeSupplier) {
+    public void close(Consumer<T> closeConsumer) {
 
     }
 
 
+    public T getResult() {
+        return result;
+    }
+
+    public State getState() {
+        return state;
+    }
 }
