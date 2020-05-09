@@ -13,7 +13,6 @@ public class AccountManager {
      * Если на исходном счету нет нужного количества денег, то метод возвращает false.
      * Класс Account непотокобезопасный и менять его нельзя
      *
-     * Подсказка: метод должен использовать synchronized блоки.
      */
     public boolean transfer(Account from, Account to, long sum) {
         return false;
